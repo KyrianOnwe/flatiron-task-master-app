@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import TasksContainer from './TasksContainer'
+import MakeTasks from './MakeTask'
 
 function TasksList() {
     const [tasks, setTasks] = useState([])
+    const [users, setUsers] = useState([])
 
     useEffect(() => {
       fetch('/tasks')
         .then((r) => r.json())
         .then((data) => setTasks(data))
     }, [])
+
+    useEffect(() => {
+      fetch('/users')
+        .then((r) => r.json())
+        .then((d) => setUsers(d))  
+    }, [])
+    
   
     // useEffect(() => {
     //   fetch('http://localhost:9292/todos')
@@ -27,9 +36,15 @@ function TasksList() {
       let leftTodos = tasks.filter((t) => t.id !== info.id)
       setTasks([...leftTodos, completeTodo])   
     }
+
+    function handleCreateTask(info){
+      setTasks([...tasks, info])
+    }
+
   return (
     <div>
-        <TasksContainer tasks={tasks} handC={handleComplete} handD={handleDelete} />
+      <MakeTasks us={users} handM={handleCreateTask} />
+      <TasksContainer tasks={tasks} handC={handleComplete} handD={handleDelete} />
     </div>
   )
 }

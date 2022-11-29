@@ -3,7 +3,7 @@ import React from 'react'
 function Tasks({ task, dd, status, id, handD, handC}) {
 
     function completed(){
-        fetch(`/task/completed/${id}`, {
+        fetch(`/tasks/${id}`, {
           method: 'PATCH',
           headers: {
             "Content-Type": "application/json"

@@ -19,12 +19,20 @@ class TasksController < ApplicationController
         end
     end
 
-    def update 
-
+    def update
+         task = Task.find(params[:id])
+         task.update(task_params)
+         render json: task
     end
 
     def delete 
-
+        task = Task.find_by(id: params[:id])
+        if task
+          task.destroy
+          head :no_content
+        else
+          render json: { error: "Task not found" }, status: :not_found
+        end
     end
 
     private
