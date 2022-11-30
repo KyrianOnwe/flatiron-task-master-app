@@ -5,10 +5,11 @@ import TasksList from './components/TasksList'
 import { Routes, Route } from 'react-router-dom';
 // import { BrowserRouter } from 'react-router-dom';
 import Home from './components/Home';
-// import Login from './components/Login';
+import Login from './components/Login';
 // import Footer from './components/Footer';
 import SignUp from './components/SignUp';
 import AddAProject from './components/AddAProject';
+import Logout from './components/Logout';
 
 
 function App() {
@@ -80,10 +81,10 @@ function App() {
     <>
     <h3>{name}</h3>
     {!id ? null : <NavBar />}
-    <SignUp />
+    <SignUp setu={setUser}/> <Login setu={setUser}/> <Logout />
     <Routes>
       <Route path='/' element={<Home id={id}/>} />
-      <Route path='/tasks' element={<TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser}id={id} />} />
+      <Route path='/tasks' element={<TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={id} />} />
       <Route path='/projects' element={<AddAProject proj={projects} handM={handleNewProject} id={id} />} />
     </Routes>
     </>

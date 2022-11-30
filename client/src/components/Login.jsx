@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {Form} from '../styled/Form'
 
-function Login() {
+function Login({setu}) {
     const [formData, setFormData] = useState({
         name:'',
         password:''
@@ -26,9 +26,9 @@ function Login() {
         })
         .then(res => {
             if(res.ok){
-                res.json().then(user => {
+                res.json().then(user => setu(user)) 
                     history.push(`/tasks`)
-                })
+                
             }else {
                 res.json().then(json => setErrors(Object.entries(json.errors)))
             }

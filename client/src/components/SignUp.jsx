@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Form} from '../styled/Form'
 import {useNavigate} from 'react-router-dom'
 
-function SignUp() {
+function SignUp(setu) {
     const [name, setUsername] = useState('')
     const [password, setpassword] = useState('')
     const [login, setLogin] = useState('')
@@ -23,9 +23,9 @@ function SignUp() {
         })
             .then(res =>{
                 if(res.ok){
-                    res.json().then(user => {
+                    res.json().then(user => setu(user))
                         history.push(`/users/${user.id}`)
-                    })
+                    
                 } else {
                     res.json().then(json => setErrors(Object.entries(json.errors)))
                 }
