@@ -44,7 +44,7 @@ function TasksList() {
   return (
     <div>
       <MakeTasks us={users} handM={handleCreateTask} />
-      <TasksContainer tasks={tasks} handC={handleComplete} handD={handleDelete} />
+      {tasks ? <TasksContainer tasks={tasks} handC={handleComplete} handD={handleDelete} /> : <h1>NO TASKS</h1>}
     </div>
   )
 }
