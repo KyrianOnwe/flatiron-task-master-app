@@ -2,7 +2,7 @@ class TasksController < ApplicationController
     def index 
         # byebug
         tasks = Task.all
-        render json: tasks, include: ['user', 'project']
+        render json: tasks
     end
 
     def create
