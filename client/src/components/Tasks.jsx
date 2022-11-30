@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Tasks({ task, dd, status, id, handD, handC}) {
+function Tasks({ task, dd, status, id, handD, handC, usid}) {
 
     function completed(){
         fetch(`/tasks/${id}`, {
@@ -25,7 +25,8 @@ function Tasks({ task, dd, status, id, handD, handC}) {
       
     
   return (
-    <tr>
+    <>
+    {!usid ? null : <tr>
       <td>
         {task}
       </td>
@@ -35,9 +36,11 @@ function Tasks({ task, dd, status, id, handD, handC}) {
       <td>
         {status}       
       </td>
+      
 
       <td><button onClick={completed}>Complete</button><button onClick={handleDelete}>Delete</button></td>
-    </tr>
+    </tr>}
+    </>
   )
 }
 

@@ -6,7 +6,11 @@ class TasksController < ApplicationController
     end
 
     def create
-         task = Task.create(task_params)
+        user = User.find_by(name: params[:user_name])
+        uid = user.id
+        project = Project.find_by(title: params[:project_title])
+        pid = project.id
+         task = Task.create(title:[params :title], due_date: params[:due_date], status: params[:status], user_id: uid, project_id: pid)
          render json: task, status: :created
     end
 

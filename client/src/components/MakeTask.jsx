@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import OptionsT from './OptionsT';
+// import OptionsT from './OptionsT';
 
 const MakeTasks = ({ us, handM }) => {
   const [newTask, setNewTask] = useState({
@@ -22,8 +22,8 @@ const MakeTasks = ({ us, handM }) => {
     setNewTask({
       title: "",
       due_date: "",
-      user_id: "",
-      project_id: "",
+      user_name: "",
+      project_title: "",
       status: "Assigned, not started",
       completed: false,
     })
@@ -49,11 +49,9 @@ const MakeTasks = ({ us, handM }) => {
             <input type="text" name="title" placeholder="Task" value={newTask.title} onChange={useSetNewTask} />
             <input type="text" name="due_date" placeholder="Due Date" value={newTask.due_date} onChange={useSetNewTask} />
             <label>
-              <select name="user_id" value={newTask.user_id} onChange={useSetNewTask}>
-                <OptionsT us={us}/>
-              </select>
+            <input type="text" name="user_name" placeholder="Assigned to?" value={newTask.user_name} onChange={useSetNewTask} />
             </label>
-            <input type="text" name="assigned_by" placeholder="Assigner" value={newTask.assigned_by} onChange={useSetNewTask} />
+            <input type="text" name="project_name" placeholder="Project?" value={newTask.project_title} onChange={useSetNewTask} />
             <button type="submit">Done!</button>
         </form>
     </div>

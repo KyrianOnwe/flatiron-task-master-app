@@ -1,17 +1,16 @@
 import React, {useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {Form} from '../styled/Form'
 
 function Login() {
     const [formData, setFormData] = useState({
         name:'',
-        email:'',
         password:''
     })
     const [errors, setErrors] = useState([])
-    const history = useHistory()
+    const history = useNavigate()
 
-    const {name, email, password} = formData
+    const {name, password} = formData
 
     function onSubmit(e){
         e.preventDefault()
@@ -48,12 +47,11 @@ function Login() {
           Username
           </label>
         <input type='text' name='name' value={name} onChange={handleChange} />
-      
+    
         <label>
-         Email
-         </label>
-        <input type='text' name='email' value={email} onChange={handleChange} />
-       
+          Password
+          </label>
+        <input type='text' name='password' value={password} onChange={handleChange} />
        
         <input type='submit' value='Log in!' />
       </Form>

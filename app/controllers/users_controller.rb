@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :authorized, only: :create
     def index
         # byebug
         us = User.all 
@@ -7,22 +8,18 @@ class UsersController < ApplicationController
 
     def show 
         user = User.find_by(id: params[:id])
-        if user.tasks == []
-            render json: user
-        else 
-            render json: user, include: :tasks
-        end
+        render json: user, status: :ok
     end
 
     def create 
         user = User.create!(user_params)
-        render json: user
-
+            session[:user_id] = user.id
+            render json: user, status: :ok
     end
 
     private 
     def user_params
-        params.permit(:name, :role, :password, :email)
+        params.permit(:name, :password)
     end
 
 end
