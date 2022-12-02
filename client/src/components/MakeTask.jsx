@@ -45,7 +45,7 @@ const MakeTasks = ({ us, handM }) => {
 
   return (
     <div>
-        <form className="tasks-holder" onSubmit={submitTask}>
+        {<form className="tasks-holder" onSubmit={submitTask}>
             <input type="text" name="title" placeholder="Task" value={newTask.title} onChange={useSetNewTask} />
             <input type="text" name="due_date" placeholder="Due Date" value={newTask.due_date} onChange={useSetNewTask} />
             <label>
@@ -53,7 +53,7 @@ const MakeTasks = ({ us, handM }) => {
             </label>
             <input type="text" name="project_name" placeholder="Project?" value={newTask.project_title} onChange={useSetNewTask} />
             <button type="submit">Done!</button>
-        </form>
+        </form>}
     </div>
   )
 }

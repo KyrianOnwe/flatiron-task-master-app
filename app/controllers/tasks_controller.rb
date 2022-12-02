@@ -10,7 +10,7 @@ class TasksController < ApplicationController
         uid = user.id
         project = Project.find_by(title: params[:project_title])
         pid = project.id
-         task = Task.create(title:[params :title], due_date: params[:due_date], status: params[:status], user_id: uid, project_id: pid)
+         task = Task.create(title: params[:title], due_date: params[:due_date], status: params[:status], user_id: uid, project_id: pid)
          render json: task, status: :created
     end
 

@@ -1,13 +1,25 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
-  # before_action :authorized
-  # def authorized
-  #   return render json:{error: "Not Authorized"}, status: :unauthorized unless session.include? :user_id
-  # end
+  before_action :authenticate_user
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
+  def current_user
+    @current_user ||= User.find_by_id(session[:user_id]) #memoization to make as few calls to db as possible; use to implement authentication
+  end
+
+  # def authenticate_user 
+  #   render json: { errors: 'Not Authorised'}, status: :unauthorized unless current_user
+  # end
+
+  # def authorized
+  #   return render json: { errors: {User: "Not Authorized"}}, status: :unauthorized unless session.include? :user_id
+  # end
+
+  def authenticate_user
+    return render json: { errors: {User: "Not Authorized"}}, status: :unauthorized unless current_user
+  end
 
   def render_unprocessable_entity(invalid)
       render json: {errors: invalid.record.errors}, status: :unprocessable_entity
