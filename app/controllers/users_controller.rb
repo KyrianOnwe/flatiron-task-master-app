@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
-    skip_before_action :authenticate_user, only: :create
+    skip_before_action :authenticate_user
     def index
         # byebug
         us = User.all 
-        render json: us, include: :tasks
+        render json: us, include: :tasks, status: :ok
     end
 
     def show 
         user = User.find_by(id: params[:id])
-        render json: user, status: :ok
+        render json: user, include: :projects, status: :ok
     end
 
     def create 

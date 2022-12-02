@@ -85,7 +85,7 @@ function App() {
     <>
     <h3>{name}</h3>
     {!id ? null : <NavBar />}
-    <SignUp setu={useSetUser}/> <Login setu={useSetUser}/> {!id ? null: <Logout />}
+    {id ? null : <SignUp setu={useSetUser}/>} {id ? null : <Login setu={useSetUser}/>} {!id ? null: <Logout />}
     <Routes>
       <Route path='/' element={!id ? null : <Home id={id}/>} />
       <Route path='/tasks' element={!id ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={id} handD={deleteTask} handC={updateTask} handM={addTask}/>} />
