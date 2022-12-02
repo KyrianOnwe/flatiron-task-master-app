@@ -87,9 +87,9 @@ function App() {
     {!id ? null : <NavBar />}
     <SignUp setu={useSetUser}/> <Login setu={useSetUser}/> {!id ? null: <Logout />}
     <Routes>
-      <Route path='/' element={<Home id={id}/>} />
-      <Route path='/tasks' element={<TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={id} handD={deleteTask} handC={updateTask} handM={addTask}/>} />
-      <Route path='/projects' element={<AddAProject proj={projects}  id={id} handM={handleNewProject} />} />
+      <Route path='/' element={!id ? null : <Home id={id}/>} />
+      <Route path='/tasks' element={!id ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={id} handD={deleteTask} handC={updateTask} handM={addTask}/>} />
+      <Route path='/projects' element={!id ? null : <AddAProject proj={projects}  id={id} handM={handleNewProject} />} />
     </Routes>
     </>
    
