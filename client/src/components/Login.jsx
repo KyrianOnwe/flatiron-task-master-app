@@ -24,21 +24,15 @@ function Login({setu}) {
           headers:{'Content-Type': 'application/json'},
           body:JSON.stringify(user)
         })
-        .then(res => {
-            if(res.ok){
-                res.json().then(user => setu(user)) 
-                    history.push(`/tasks`)
-                
-            }else {
-                res.json().then(json => setErrors(Object.entries(json.errors)))
-            }
-        })
+        .then(res => res.json())
+        .then(dat => console.log(dat))
        
     }
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
+
       }
     return (
         <> 
@@ -51,7 +45,7 @@ function Login({setu}) {
         <label>
           Password
           </label>
-        <input type='text' name='password' value={password} onChange={handleChange} />
+        <input type='password' name='password' value={password} onChange={handleChange} />
        
         <input type='submit' value='Log in!' />
       </Form>

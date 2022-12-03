@@ -6,9 +6,9 @@ class UsersController < ApplicationController
         render json: us, include: :tasks, status: :ok
     end
 
-    def show 
+    def show         
         user = User.find_by(id: params[:id])
-        render json: user, include: :projects, status: :ok
+        render json: user, include: :projects
     end
 
     def create 

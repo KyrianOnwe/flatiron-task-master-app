@@ -16,8 +16,11 @@ function App() {
   const [user, setUser] = useState({})
   const [projects, setProjects] = useState([])
   const [errors, setErrors] = useState(false)
+  const [userProjs, setUserProjs] = useState(null)
   // const [cart, setCart] = useState([])
-
+  const [isNewUser, setIsNewUser] = useState(false)
+ 
+  const {name, id} = user
 
   useEffect(() => {
     fetch('/tasks')
@@ -28,33 +31,43 @@ function App() {
         res.json().then(data => setErrors(data.error))
       }
     })
-  },[])
+  },[user])
 
   
   useEffect(() => {
-    fetch('/users')
+    fetch(`/users/${id}`)
       .then((r) => r.json())
-      .then((d) => setUser(d))  
-  }, [])
+      .then((d) => userSetTasks(d))  
+  }, [user])
 
-  useEffect(() => {
-    fetch('/projects')
-    .then(res => {
-      if(res.ok){
-        res.json().then(setProjects)
-      }else {
-        res.json().then(data => setErrors(data.error))
-      }
-    })
+  console.log(userProjs)
+
+  function useSetIsNewUser(){
+    setIsNewUser(!isNewUser)
+
+  }
+
+  // useEffect(() => {
+  //   fetch('/projects')
+  //   .then(res => {
+  //     if(res.ok){
+  //       res.json().then(setProjects)
+  //     }else {
+  //       res.json().then(data => setErrors(data.error))
+  //     }
+  //   })
   
-  }, [])
+  // }, [])
+  function userSetTasks(data){
+    setUserProjs(data)
+  }
 
   function handleNewProject(proj){
     setProjects([...projects, proj])
     console.log(proj)
   }
   
-  const {name, id} = user
+ 
 
   function useSetUser(data){
     setUser(data)
@@ -85,7 +98,7 @@ function App() {
     <>
     <h3>{name}</h3>
     {!id ? null : <NavBar />}
-    {id ? null : <SignUp setu={useSetUser}/>} {id ? null : <Login setu={useSetUser}/>} {!id ? null: <Logout />}
+    {id ? null : <SignUp setu={useSetUser} newusr={useSetIsNewUser} />} {id ? null : <Login setu={useSetUser} newusr={useSetIsNewUser} />} {!id ? null: <Logout />}
     <Routes>
       <Route path='/' element={!id ? null : <Home id={id}/>} />
       <Route path='/tasks' element={!id ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={id} handD={deleteTask} handC={updateTask} handM={addTask}/>} />
