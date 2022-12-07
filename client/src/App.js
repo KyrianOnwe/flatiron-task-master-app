@@ -17,7 +17,6 @@ function App() {
   const [projects, setProjects] = useState([])
   const [errors, setErrors] = useState(false)
   const [userProjs, setUserProjs] = useState(null)
-  // const [cart, setCart] = useState([])
   const [isNewUser, setIsNewUser] = useState(false)
  
   const {name, id} = user
@@ -94,11 +93,16 @@ function App() {
 
   if(errors) return <h1>{errors}</h1>
 
+  function deleteUser(){
+    console.log('deleted user')
+    setUser({})
+  }
+
   return (
     <>
     <h3>{name}</h3>
     {!id ? null : <NavBar />}
-    {id ? null : <SignUp setu={useSetUser} newusr={useSetIsNewUser} />} {id ? null : <Login setu={useSetUser} newusr={useSetIsNewUser} />} {!id ? null: <Logout />}
+    {id ? null : <SignUp setu={useSetUser} newusr={useSetIsNewUser} />} {id ? null : <Login setu={useSetUser} newusr={useSetIsNewUser} />}  <Logout deleteUser={deleteUser} user={user}/>
     <Routes>
       <Route path='/' element={!id ? null : <Home id={id}/>} />
       <Route path='/tasks' element={!id ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={id} handD={deleteTask} handC={updateTask} handM={addTask}/>} />

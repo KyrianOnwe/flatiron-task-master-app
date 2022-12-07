@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useEffect } from 'react'
+// import {useNavigate} from 'react-router-dom'
 import {Form} from '../styled/Form'
 
 function Login({setu}) {
@@ -8,7 +9,7 @@ function Login({setu}) {
         password:''
     })
     const [errors, setErrors] = useState([])
-    const history = useNavigate()
+    // const history = useNavigate()
 
     const {name, password} = formData
 
@@ -25,7 +26,7 @@ function Login({setu}) {
           body:JSON.stringify(user)
         })
         .then(res => res.json())
-        .then(dat => console.log(dat))
+        .then(dat => setu(dat))
        
     }
 
@@ -34,7 +35,12 @@ function Login({setu}) {
         setFormData({ ...formData, [name]: value })
 
       }
-    return (
+
+        useEffect(() => {
+          setErrors([])
+        }, [])
+
+        return (
         <> 
         <Form onSubmit={onSubmit}>
         <label>
