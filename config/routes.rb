@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
-  resources :tasks, only: [:index, :create, :update, :delete, :show]
+  resources :tasks, only: [:index, :create, :update, :destroy, :show]
   resources :users, only: [:index, :show, :create]
-  resources :projects, only: [:index, :create]
+  resources :projects, only: [:index, :create, :show, :update, :destroy]
   post "/login", to: "sessions#create"
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

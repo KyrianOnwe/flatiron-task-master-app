@@ -1,15 +1,16 @@
 require 'faker'
 
 Task.destroy_all
-# User.destroy_all
-# Project.destroy_all
+User.destroy_all
+Project.destroy_all
 
 puts "🌱 Seeding spices..."
 
 # Seed your database here
 User.create(
     name: "Kyrian",
-    password: "Hi"
+    password: "Hi",
+    admin: true
 )
 # User.create(
 #     name: "Marty McFly",
@@ -20,7 +21,8 @@ User.create(
 5.times do
     User.create(
         name: Faker::Name.unique.name,
-        password: "Yoyoyo"
+        password: "Yoyoyo", 
+        admin: false
     )
 end
 
@@ -28,7 +30,7 @@ end
     Task.create(
         title: Faker::Hobby.activity,
         due_date: Faker::Date.between(from: 2.days.ago, to: Date.today),
-        user_id: rand(1...7),
+        user_id: rand(1...6),
         status: "Assigned",
         project_id: rand(1...4),
         complete: false

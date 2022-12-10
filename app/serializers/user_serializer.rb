@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :projects
+  attributes :id, :name, :admin, :tasks
   has_many :tasks
-  has_many :projects, though: :tasks  
+  has_many :projects, through: :tasks  
 end

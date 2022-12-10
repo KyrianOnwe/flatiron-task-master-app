@@ -5,8 +5,8 @@ const MakeTasks = ({ us, handM }) => {
   const [newTask, setNewTask] = useState({
     title: "",
     due_date: "",
-    user_id: "",
-    project_id: "",
+    user_name: "",
+    project_title: "",
     status: "Assigned",
     completed: false,
   })
@@ -24,7 +24,7 @@ const MakeTasks = ({ us, handM }) => {
       due_date: "",
       user_name: "",
       project_title: "",
-      status: "Assigned, not started",
+      status: "Assigned",
       completed: false,
     })
   }
@@ -51,7 +51,7 @@ const MakeTasks = ({ us, handM }) => {
             <label>
             <input type="text" name="user_name" placeholder="Assigned to?" value={newTask.user_name} onChange={useSetNewTask} />
             </label>
-            <input type="text" name="project_name" placeholder="Project?" value={newTask.project_title} onChange={useSetNewTask} />
+            <input type="text" name="project_title" placeholder="Project?" value={newTask.project_title} onChange={useSetNewTask} />
             <button type="submit">Done!</button>
         </form>}
     </div>

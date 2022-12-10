@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ProjectsContainer from './ProjectsContainer';
+// import ProjectsContainer from './ProjectsContainer';
 
 function AddAProject({proj, handM, id}) {
     
@@ -38,13 +38,13 @@ function AddAProject({proj, handM, id}) {
         
           return (
             <div>
-                <form className="tasks-holder" onSubmit={submitProject}>
-                    {!id ? null :<input type="text" name="title" placeholder="Task" value={newProject.title} onChange={useSetNewProject} />}
-                    {!id ? null :<input type="text" name="due_date" placeholder="Due Date" value={newProject.due_date} onChange={useSetNewProject} />}
+                <form className="project-builder" onSubmit={submitProject}>
+                    <input type="text" name="title" placeholder="Project Title" value={newProject.title} onChange={useSetNewProject} />
+                    <input type="text" name="due_date" placeholder="Due Date" value={newProject.due_date} onChange={useSetNewProject} />
 
-                    {!id ? null :<button type="submit">Done!</button>}
+                    <button type="submit">Done!</button>
                 </form>
-                <ProjectsContainer proj={proj} id={id} />
+
             </div>
           )
 }

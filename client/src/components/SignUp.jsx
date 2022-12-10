@@ -1,38 +1,63 @@
 import React, { useState } from 'react'
 import {Form} from '../styled/Form'
-import {useNavigate} from 'react-router-dom'
+// import {useNavigate} from 'react-router-dom'
 
-function SignUp(setu) {
+function SignUp({ useSetUser }) {
     const [name, setUsername] = useState('')
     const [password, setpassword] = useState('')
-    const [login, setLogin] = useState('')
+    // const [login, setLogin] = useState('')
     const [errors, setErrors] = useState([])
+    const [admin, setAdmin] = useState(false)
+    // const [whatev, setWhatev]= useState({})
+    // const [take, setTake] = useState({})
+    let holder 
 
-    const history = useNavigate
+    // const history = useNavigate
+    function useWorkGoddamint(data){
+        holder = {...data}
+        console.log(holder)
+        useSetUser(holder)                
+        setUsername('')
+        setpassword('')
+        setAdmin(false)
+        // console.log(whatev)
+        
+    }
+
+    // function useSetTake(info){
+    //     setTake(info)   
+    //     useWorkGoddamint()
+    // }
 
     function onSubmit(e){
         e.preventDefault()
         const user = {
             name, 
-            password
+            password,
+            admin
         }
         fetch('/users', {
             method: "POST", 
-            headers:{'Content-Tye':'application/json'},
+            headers:{'Content-Type':'application/json'},
             body:JSON.stringify(user)
         })
-            .then(res =>{
+            .then(res => {
                 if(res.ok){
-                    res.json().then(user => setu(user))
-                        history.push(`/users/${user.id}`)
-                    
-                } else {
-                    res.json().then(json => setErrors(Object.entries(json.errors)))
+                    res.json().then(useWorkGoddamint
+                    )
+                }else{
+                    res.json().then((data) => setErrors(data.errors))
                 }
             })
+            // .then((data) => setu(data))
+
+            // console.log(whatev)
 
     }
-    console.log(login)
+    // function checkForErrors(data){
+    //     data.ok ? data.json() : setErrors(data)
+    // }
+    // console.log(login)
   return (
     <>
     <Form onSubmit={onSubmit} >
@@ -46,8 +71,13 @@ function SignUp(setu) {
             <br />
             <input type='password' value={password} onChange={(e) => setpassword(e.target.value)} />
         </label>
+        <label>
+            Adminisrator?  
+            <br />
+            <input type='text' value={admin} onChange={(e) => setAdmin(e.target.value)} />
+        </label>
         {/* <input type='submit' value="Sign up" onClick/> */}
-        <input type='submit' value="Sign up" onClick={() => setLogin(true)} /> 
+        <input type='submit' value="Sign up" /> 
     </Form>
     {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
 

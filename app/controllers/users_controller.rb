@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
-    skip_before_action :authenticate_user
+    skip_before_action :authenticate_user, only: :create
     def index
         # byebug
-        us = User.all 
-        render json: us, include: :tasks, status: :ok
+        # us = User.all 
+        render json: current_user, include: :tasks, status: :ok
     end
 
     def show         
-        user = User.find_by(id: params[:id])
+        user = User.find_by_id(params[:id])
         render json: user, include: :projects
     end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
     private 
     def user_params
-        params.permit(:name, :password)
+        params.permit(:name, :password, :admin)
     end
 
 end

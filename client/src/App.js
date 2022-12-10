@@ -4,11 +4,12 @@ import NavBar from './components/NavBar'
 import TasksList from './components/TasksList'
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
-import Login from './components/Login';
-// import Footer from './components/Footer';
-import SignUp from './components/SignUp';
-import AddAProject from './components/AddAProject';
-import Logout from './components/Logout';
+// import Login from './components/Login';
+// import SignUp from './components/SignUp';
+// import AddAProject from './components/AddAProject';
+import ProjectPage from './components/ProjectPage';
+import Footer from './components/Footer';
+import Auth from './components/Auth';
 
 
 function App() {
@@ -16,51 +17,61 @@ function App() {
   const [user, setUser] = useState({})
   const [projects, setProjects] = useState([])
   const [errors, setErrors] = useState(false)
-  const [userProjs, setUserProjs] = useState(null)
+  const [userProjs, setUserProjs] = useState([])
   const [isNewUser, setIsNewUser] = useState(false)
- 
-  const {name, id} = user
+  const [start, setstart] = useState(false)
+  const [isAdmin, setisAdmin] = useState(false)
 
   useEffect(() => {
-    fetch('/tasks')
-    .then(res => {
-      if(res.ok){
-        res.json().then(setTasks)
-      }else {
-        res.json().then(data => setErrors(data.error))
-      }
-    })
-  },[user])
+    if(start && isAdmin){
+      fetch('/tasks')
+        .then(res => {
+          if(res.ok){
+          res.json().then(setTasks)
+         }else {
+          res.json().then(data => setErrors(data.error))
+         }
+      })
+    }
+  },[user, start, isAdmin])
+
+  useEffect(() => {
+    if(start && isAdmin){
+      fetch('/projects')
+        .then(res => {
+          if(res.ok){
+          res.json().then(setProjects)
+         }else {
+          res.json().then(data => setErrors(data.error))
+         }
+      })
+    }
+  },[user, start, isAdmin])
 
   
   useEffect(() => {
-    fetch(`/users/${id}`)
+    if(start && !isAdmin){
+      fetch(`/users/${user.id}`)
       .then((r) => r.json())
-      .then((d) => userSetTasks(d))  
-  }, [user])
+      .then(() => setAll(user))
+      
+    }
+ 
+  }, [user, start, isAdmin])
 
   console.log(userProjs)
+  function setAll(i){
+    setTasks([...i.tasks])
+    setUserProjs([...i.projects])
+  }
+  console.log(userProjs)
+  console.log(tasks)
 
   function useSetIsNewUser(){
     setIsNewUser(!isNewUser)
 
   }
-
-  // useEffect(() => {
-  //   fetch('/projects')
-  //   .then(res => {
-  //     if(res.ok){
-  //       res.json().then(setProjects)
-  //     }else {
-  //       res.json().then(data => setErrors(data.error))
-  //     }
-  //   })
   
-  // }, [])
-  function userSetTasks(data){
-    setUserProjs(data)
-  }
-
   function handleNewProject(proj){
     setProjects([...projects, proj])
     console.log(proj)
@@ -69,7 +80,9 @@ function App() {
  
 
   function useSetUser(data){
+    setstart(!start)
     setUser(data)
+    setisAdmin(data.admin)    
   }
   
 
@@ -100,14 +113,16 @@ function App() {
 
   return (
     <>
-    <h3>{name}</h3>
-    {!id ? null : <NavBar />}
-    {id ? null : <SignUp setu={useSetUser} newusr={useSetIsNewUser} />} {id ? null : <Login setu={useSetUser} newusr={useSetIsNewUser} />}  <Logout deleteUser={deleteUser} user={user}/>
+    <h3>{user.name}</h3>
+    {!start ? null : <NavBar deleteUser={deleteUser} user={user} admin={isAdmin} start={start} sstart={setstart} />}
+    {!start ? <Auth setu={useSetUser} usnewusr={useSetIsNewUser} newUser={isNewUser} useSetUser={useSetUser} /> : null} 
     <Routes>
-      <Route path='/' element={!id ? null : <Home id={id}/>} />
-      <Route path='/tasks' element={!id ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={id} handD={deleteTask} handC={updateTask} handM={addTask}/>} />
-      <Route path='/projects' element={!id ? null : <AddAProject proj={projects}  id={id} handM={handleNewProject} />} />
+      <Route path='/' element={!start ? null : <Home id={user.id}/>} />
+      <Route path='/tasks' element={!start ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={user.id} handD={deleteTask} handC={updateTask} handM={addTask} admin={isAdmin} />} />
+      <Route path='/projects' element={!isAdmin ? null : <ProjectPage proj={projects}  id={user.id} handM={handleNewProject} />} />
+
     </Routes>
+    <Footer />
     </>
    
   );

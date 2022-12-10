@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
     def show 
         t =  Task.find(params[:id])
-        if t == []
+        if t == {}
             render json: "Nothing to display"
         else
             render json: t, include: :users
@@ -42,6 +42,6 @@ class TasksController < ApplicationController
     private
 
     def task_params 
-        params.permit(:title, :due_date, :status, :user_id, :project_id, :complete)
+        params.permit(:title, :due_date, :status, :user_name, :project_title, :complete)
     end
 end

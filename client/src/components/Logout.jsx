@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function Logout({ deleteUser, user }) {
+function Logout({ deleteUser, user, sstart }) {
   const hist = useNavigate()
     function logout(){
         fetch('/logout', {
@@ -18,6 +18,7 @@ function Logout({ deleteUser, user }) {
       console.log('redirected')
       deleteUser()
       console.log(user)
+      sstart(false)
       
       
     }
