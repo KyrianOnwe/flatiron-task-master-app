@@ -2,10 +2,10 @@ import React from 'react'
 import TasksContainer from './TasksContainer'
 import MakeTasks from './MakeTask'
 
-function TasksList({ tasks, setTasks, users, id, admin }) {
+function TasksList({ tasks, setTasks, users, id, admin, usErr }) {
 
-    function handleDelete(id){
-      const newTodos = tasks.filter((t) => t.id !== id)
+    function handleDelete(ida){
+      const newTodos = tasks.filter((t) => t.id !== ida)
       setTasks(newTodos)
     }
   
@@ -22,8 +22,8 @@ function TasksList({ tasks, setTasks, users, id, admin }) {
 
   return (
     <div>
-      {!id ? null : <MakeTasks us={users} handM={handleCreateTask} />}
-      <TasksContainer tasks={tasks} handC={handleComplete} handD={handleDelete} admin={admin} />
+      {!id ? null : <MakeTasks us={users} handM={handleCreateTask} usErr={usErr} />}
+      <TasksContainer tasks={tasks} handC={handleComplete} handD={handleDelete} admin={admin} usErr={usErr} />
     </div>
   )
 }

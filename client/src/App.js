@@ -10,13 +10,14 @@ import Home from './components/Home';
 import ProjectPage from './components/ProjectPage';
 import Footer from './components/Footer';
 import Auth from './components/Auth';
+import Header from './components/Header';
 
 
 function App() {
   const [tasks, setTasks] = useState([])
   const [user, setUser] = useState({})
   const [projects, setProjects] = useState([])
-  const [errors, setErrors] = useState(false)
+  const [errors, setErrors] = useState([])
   const [userProjs, setUserProjs] = useState([])
   const [isNewUser, setIsNewUser] = useState(false)
   const [start, setstart] = useState(false)
@@ -34,6 +35,7 @@ function App() {
       })
     }
   },[user, start, isAdmin])
+
 
   useEffect(() => {
     if(start && isAdmin){
@@ -59,13 +61,17 @@ function App() {
  
   }, [user, start, isAdmin])
 
+  function clearErrorMessage(){
+    setErrors([])
+  }
+
   console.log(userProjs)
   function setAll(i){
     setTasks([...i.tasks])
     setUserProjs([...i.projects])
   }
-  console.log(userProjs)
-  console.log(tasks)
+  // console.log(userProjs)
+  // console.log(tasks)
 
   function useSetIsNewUser(){
     setIsNewUser(!isNewUser)
@@ -74,7 +80,7 @@ function App() {
   
   function handleNewProject(proj){
     setProjects([...projects, proj])
-    console.log(proj)
+    // console.log(proj)
   }
   
  
@@ -86,8 +92,8 @@ function App() {
   }
   
 
-  console.log(errors)
-  console.log(tasks)
+  // console.log(errors)
+  // console.log(tasks)
 
   const addTask = (task) => setTasks(current => [...current,task])
 
@@ -103,25 +109,47 @@ function App() {
 
   const deleteTask = (id) => setTasks(current => current.filter(p => p.id !== id)) 
 
+  function useSetErrors(data){
+    console.log(data)
+    console.log(data.errors)
+    if(data.errors){
+      setErrors([...errors, data.errors])
+      setTimeout(() => {
+        clearErrorMessage()
+        }, 10000);
+    } else {
+      setErrors([...errors, data.error])
+      setTimeout(() => {
+        clearErrorMessage()
+        }, 10000);
+    }
+    
+  }
 
-  if(errors) return <h1>{errors}</h1>
+
+  // if(errors) return <h1>{errors}</h1>
 
   function deleteUser(){
-    console.log('deleted user')
+    // console.log('deleted user')
     setUser({})
   }
 
   return (
     <>
+    <Header />
     <h3>{user.name}</h3>
     {!start ? null : <NavBar deleteUser={deleteUser} user={user} admin={isAdmin} start={start} sstart={setstart} />}
-    {!start ? <Auth setu={useSetUser} usnewusr={useSetIsNewUser} newUser={isNewUser} useSetUser={useSetUser} /> : null} 
+    {!start ? <Auth setu={useSetUser} usnewusr={useSetIsNewUser} newUser={isNewUser} useSetUser={useSetUser} usErr={useSetErrors} /> : null} 
     <Routes>
-      <Route path='/' element={!start ? null : <Home id={user.id}/>} />
-      <Route path='/tasks' element={!start ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={user.id} handD={deleteTask} handC={updateTask} handM={addTask} admin={isAdmin} />} />
-      <Route path='/projects' element={!isAdmin ? null : <ProjectPage proj={projects}  id={user.id} handM={handleNewProject} />} />
+      <Route path='/' element={!start ? null : <Home admin={isAdmin} id={user.id}/>} />
+      <Route path='/tasks' element={!start ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={user.id} handD={deleteTask} handC={updateTask} handM={addTask} admin={isAdmin} usErr={useSetErrors}/>} />
+      <Route path='/projects' element={!isAdmin ? null : <ProjectPage proj={projects}  id={user.id} handM={handleNewProject} usErr={useSetErrors} />} />
 
+      
     </Routes>
+
+    {errors?errors.map(e => <div>{e.key +': ' + e.value}</div>):null}
+
     <Footer />
     </>
    

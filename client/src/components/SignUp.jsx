@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import {Form} from '../styled/Form'
 // import {useNavigate} from 'react-router-dom'
 
-function SignUp({ useSetUser }) {
+function SignUp({ useSetUser, usErr }) {
     const [name, setUsername] = useState('')
     const [password, setpassword] = useState('')
     // const [login, setLogin] = useState('')
-    const [errors, setErrors] = useState([])
+    // const [errors, setErrors] = useState([])
     const [admin, setAdmin] = useState(false)
     // const [whatev, setWhatev]= useState({})
     // const [take, setTake] = useState({})
@@ -15,7 +15,7 @@ function SignUp({ useSetUser }) {
     // const history = useNavigate
     function useWorkGoddamint(data){
         holder = {...data}
-        console.log(holder)
+        // console.log(holder)
         useSetUser(holder)                
         setUsername('')
         setpassword('')
@@ -24,10 +24,11 @@ function SignUp({ useSetUser }) {
         
     }
 
-    // function useSetTake(info){
-    //     setTake(info)   
-    //     useWorkGoddamint()
-    // }
+    // function useSetErrors(data){
+    //     // console.log(data)
+    //     setErrors([...errors, data.errors])
+        
+    //   }
 
     function onSubmit(e){
         e.preventDefault()
@@ -43,10 +44,9 @@ function SignUp({ useSetUser }) {
         })
             .then(res => {
                 if(res.ok){
-                    res.json().then(useWorkGoddamint
-                    )
+                    res.json().then(useWorkGoddamint)
                 }else{
-                    res.json().then((data) => setErrors(data.errors))
+                    res.json().then(usErr)
                 }
             })
             // .then((data) => setu(data))
@@ -79,7 +79,7 @@ function SignUp({ useSetUser }) {
         {/* <input type='submit' value="Sign up" onClick/> */}
         <input type='submit' value="Sign up" /> 
     </Form>
-    {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
+    {/* {errors?errors.map(e => <p key={e.key}>{e.key+': ' + e.value}</p>):null} */}
 
     </>
   )

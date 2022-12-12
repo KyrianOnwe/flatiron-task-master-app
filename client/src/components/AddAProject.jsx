@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import ProjectsContainer from './ProjectsContainer';
 
-function AddAProject({proj, handM, id}) {
+function AddAProject({proj, handM, id, usErr}) {
     
         const [newProject, setNewProject] = useState({
             title: "",
@@ -21,6 +21,11 @@ function AddAProject({proj, handM, id}) {
               due_date: ""
             })
           }
+
+          function useHandM(data){
+            handM(data);
+            resetProjectAdder()
+          }
         
           function submitProject(e){
             e.preventDefault()    
@@ -31,9 +36,13 @@ function AddAProject({proj, handM, id}) {
               },
               body: JSON.stringify(newProject)
             })
-              .then((r) => r.json())
-              .then((data) => handM(data))
-              .then(() => resetProjectAdder())
+              .then((r) => {
+                if(r.ok){
+                  r.json().then(useHandM)
+                } else {
+                  r.json().then(usErr)
+                }
+              })
           }
         
           return (

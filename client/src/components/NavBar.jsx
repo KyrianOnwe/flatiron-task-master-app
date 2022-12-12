@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Logout from './Logout'
 
 function NavBar({ deleteUser, user, admin, start, sstart }) {
-  console.log(admin)
+  // console.log(admin)
   return (
     <>
     <div id='navbar'>

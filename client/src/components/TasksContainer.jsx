@@ -1,7 +1,7 @@
 import React from 'react'
 import Tasks from './Tasks'
 
-function TasksContainer({ tasks, handD, handC, id, admin }) {
+function TasksContainer({ tasks, handD, handC, id, admin, usErr }) {
   return (
     <div className='tasks-container'>
          <table>
@@ -15,7 +15,7 @@ function TasksContainer({ tasks, handD, handC, id, admin }) {
             </tr>
           </thead>
           <tbody>            
-              {tasks.map((t) => <Tasks key={t.id} id={t.id} task={t.title} dd={t.due_date} status={t.status} handD={handD} handC={handC} usid={t.user_id} admin={admin} />)}
+              {tasks.map((t) => <Tasks key={t.id} id={t.id} task={t.title} dd={t.due_date} status={t.status} handD={handD} handC={handC} usid={t.user_id} admin={admin} usErr={usErr} />)}
           </tbody>
         </table>
 

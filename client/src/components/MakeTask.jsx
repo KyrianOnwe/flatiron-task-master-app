@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import OptionsT from './OptionsT';
 
-const MakeTasks = ({ us, handM }) => {
+const MakeTasks = ({ us, handM, usErr }) => {
   const [newTask, setNewTask] = useState({
     title: "",
     due_date: "",
@@ -29,6 +29,11 @@ const MakeTasks = ({ us, handM }) => {
     })
   }
 
+  function useHandM(data){
+    handM(data)
+    resetTaskAdder()
+  }
+
   function submitTask(e){
     e.preventDefault()    
     fetch(("/tasks"), {
@@ -38,9 +43,13 @@ const MakeTasks = ({ us, handM }) => {
       },
       body: JSON.stringify(newTask)
     })
-      .then((r) => r.json())
-      .then((data) => handM(data))
-      .then(() => resetTaskAdder())
+      .then((r) =>{
+        if(r.ok){
+          r.json().then(useHandM)
+        } else {
+          r.json().then(usErr)
+        }
+      })
   }
 
   return (

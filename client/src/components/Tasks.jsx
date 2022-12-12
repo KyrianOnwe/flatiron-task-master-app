@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Tasks({ task, dd, status, id, handD, handC, usid, admin }) {
+function Tasks({ task, dd, status, id, handD, handC, usid, admin, usErr }) {
 
     function completed(){
         fetch(`/tasks/${id}`, {
@@ -13,16 +13,20 @@ function Tasks({ task, dd, status, id, handD, handC, usid, admin }) {
             status: `Done-Completed.`
           }),
         })
-        .then((r) => r.json())
-        .then((data) => handC(data))
+        .then((r) => {
+          if(r.ok){
+            r.json().then(handC)
+          } else {
+            r.json().then(usErr)
+          }
+        })
       }
       
       function handleDelete(){
         fetch(`/tasks/${id}`,{method: "DELETE"})
           .then((r) => r.json())
-          .then(() => handD(id))
-      }
-      
+          .then(handD(id))
+      }      
     
   return (
     <>

@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+    before_action :is_admin?, only: [:create]
+    
     def index 
         # byebug
         tasks = Task.all
@@ -29,7 +31,7 @@ class TasksController < ApplicationController
          render json: task
     end
 
-    def delete 
+    def destroy 
         task = Task.find_by(id: params[:id])
         if task
           task.destroy
@@ -43,5 +45,10 @@ class TasksController < ApplicationController
 
     def task_params 
         params.permit(:title, :due_date, :status, :user_name, :project_title, :complete)
+    end
+
+    def is_admin?
+        permitted = current_user.admin
+        render json: {errors: {User: "does not have admin priveledges"}}, status: :forbidden unless permitted
     end
 end
