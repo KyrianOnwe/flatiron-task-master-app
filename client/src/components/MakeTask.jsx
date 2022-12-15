@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import OptionsT from './OptionsT';
 
 const MakeTasks = ({ us, handM, usErr }) => {
   const [newTask, setNewTask] = useState({

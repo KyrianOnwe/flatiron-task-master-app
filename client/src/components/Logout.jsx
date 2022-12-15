@@ -10,14 +10,9 @@ function Logout({ deleteUser, user, sstart }) {
     }
 
     function both(){
-      // console.log(user)
       logout()
-      // console.log('deleted')
-      // console.log(user)
       hist('/')
-      // console.log('redirected')
       deleteUser()
-      // console.log(user)
       sstart(false)
       
       

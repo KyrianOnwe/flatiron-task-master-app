@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import ProjectsContainer from './ProjectsContainer';
 
 function AddAProject({proj, handM, id, usErr}) {
     

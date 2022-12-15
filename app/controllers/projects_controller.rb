@@ -30,6 +30,11 @@ class ProjectsController < ApplicationController
         head :no_content
     end
 
+    def showx
+        proj = Project.find_by(due_date: params[:due_date])
+        render json: proj, status: :ok
+    end
+
     private
     def project_params
         params.permit(:title, :due_date)

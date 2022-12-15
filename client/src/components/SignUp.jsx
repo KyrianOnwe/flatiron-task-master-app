@@ -1,34 +1,20 @@
 import React, { useState } from 'react'
 import {Form} from '../styled/Form'
-// import {useNavigate} from 'react-router-dom'
 
 function SignUp({ useSetUser, usErr }) {
     const [name, setUsername] = useState('')
     const [password, setpassword] = useState('')
-    // const [login, setLogin] = useState('')
-    // const [errors, setErrors] = useState([])
     const [admin, setAdmin] = useState(false)
-    // const [whatev, setWhatev]= useState({})
-    // const [take, setTake] = useState({})
     let holder 
 
-    // const history = useNavigate
     function useWorkGoddamint(data){
         holder = {...data}
-        // console.log(holder)
         useSetUser(holder)                
         setUsername('')
         setpassword('')
         setAdmin(false)
-        // console.log(whatev)
         
     }
-
-    // function useSetErrors(data){
-    //     // console.log(data)
-    //     setErrors([...errors, data.errors])
-        
-    //   }
 
     function onSubmit(e){
         e.preventDefault()
@@ -49,15 +35,8 @@ function SignUp({ useSetUser, usErr }) {
                     res.json().then(usErr)
                 }
             })
-            // .then((data) => setu(data))
-
-            // console.log(whatev)
 
     }
-    // function checkForErrors(data){
-    //     data.ok ? data.json() : setErrors(data)
-    // }
-    // console.log(login)
   return (
     <>
     <Form onSubmit={onSubmit} >
@@ -76,10 +55,8 @@ function SignUp({ useSetUser, usErr }) {
             <br />
             <input type='text' value={admin} onChange={(e) => setAdmin(e.target.value)} />
         </label>
-        {/* <input type='submit' value="Sign up" onClick/> */}
         <input type='submit' value="Sign up" /> 
     </Form>
-    {/* {errors?errors.map(e => <p key={e.key}>{e.key+': ' + e.value}</p>):null} */}
 
     </>
   )

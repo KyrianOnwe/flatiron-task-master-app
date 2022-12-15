@@ -9,13 +9,7 @@ class ApplicationController < ActionController::API
     @current_user ||= User.find_by_id(session[:user_id]) #memoization to make as few calls to db as possible; use to implement authentication
   end
 
-  # def authenticate_user 
-  #   render json: { errors: 'Not Authorised'}, status: :unauthorized unless current_user
-  # end
 
-  # def authorized
-  #   return render json: { errors: {User: "Not Authorized"}}, status: :unauthorized unless session.include? :user_id
-  # end
   private
 
   def authenticate_user

@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-    before_action :is_admin?, only: [:create]
+    # before_action :is_admin?, only: [:create]
     
     def index 
         # byebug
@@ -40,6 +40,11 @@ class TasksController < ApplicationController
           render json: { error: "Task not found" }, status: :not_found
         end
     end
+
+    # def showx
+    #     tasks = Task.find_by(due_date: params[:due_date])
+    #     render json: tasks 
+    # end
 
     private
 
