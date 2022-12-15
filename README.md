@@ -18,3 +18,6 @@ Note: a user should only be able to edit
 
 # How to use
 Fork and clone down the repo, navigat to its directory and run `bundle install`.  The frontend is included in a client folder inside the same directory. From the root folder, run `npm install --prefix client`.  Once complete, start the backend server by running `rails s` from the terminal.  Open a new terminal and navigate to the root directory and run `npm start --prefix client`.  Enjoy!
+
+# In app 
+Any user can create a new administrator and access all application routes.  Non administrators can only mark tasks comlete and view tasks.  All users MUST sign in.
