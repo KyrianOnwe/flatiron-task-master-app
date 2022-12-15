@@ -111,14 +111,15 @@ function App() {
 
   function useSetErrors(data){
     console.log(data)
-    console.log(data.errors)
     if(data.errors){
-      setErrors([...errors, data.errors])
+      let error2 = data.errors.map(error => Object.entries(error))
+      setErrors(error2)
       setTimeout(() => {
         clearErrorMessage()
         }, 10000);
     } else {
-      setErrors([...errors, data.error])
+      let error1 = Object.entries(data.error)
+      setErrors(error1)
       setTimeout(() => {
         clearErrorMessage()
         }, 10000);
@@ -148,7 +149,7 @@ function App() {
       
     </Routes>
 
-    {errors?errors.map(e => <div>{e.key +': ' + e.value}</div>):null}
+    {errors?errors.map(e => <div>{e[0] +': ' + e[1]}</div>):null}
 
     <Footer />
     </>
