@@ -15,7 +15,7 @@ This app is for web tracking of project related tasks
     log in to the site with a secure password and stay logged in via user ID in the session hash, and log out of the site.
 
 # How to use
-Fork and clone down the repo, navigat to its directory and type `bundle install`, followed by `Enter` or `Return` to install the backend dependencies.  Once complete, start the backend server by typing `rails s`,  followed by `Enter` or `Return`.  
+Fork and clone down the repo, navigat to its directory and type `bundle install`, followed by `Enter` or `Return` to install the backend dependencies.  Next, run `rails db:migrate` to set up the tables.  Once complete, start the backend server by typing `rails s`,  followed by `Enter` or `Return`.  
 The frontend is included in a client folder inside the same directory. To use it, open a new terminal and be sure to navigate to the same directory that the backend server is running from and type `npm install --prefix client`, followed by `Enter` or `Return` to install the frontend dependencies.    Once that is complete, type `npm start --prefix client`, followed by `Enter` or `Return` to start the frontend.  Enjoy!
 
 # In app 
