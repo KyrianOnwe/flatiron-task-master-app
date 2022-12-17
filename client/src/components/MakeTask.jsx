@@ -54,12 +54,12 @@ const MakeTasks = ({ us, handM, usErr }) => {
   return (
     <div>
         {<form className="tasks-holder" onSubmit={submitTask}>
-            <input type="text" name="title" placeholder="Task" value={newTask.title} onChange={useSetNewTask} />
-            <input type="text" name="due_date" placeholder="Due Date" value={newTask.due_date} onChange={useSetNewTask} />
+            <input type="text" name="title" placeholder="What's the new task?" value={newTask.title} onChange={useSetNewTask} />
+            <input type="text" name="due_date" placeholder="When is the task due (yyyy-mm-dd)?" value={newTask.due_date} onChange={useSetNewTask} />
             <label>
-            <input type="text" name="user_name" placeholder="Assigned to?" value={newTask.user_name} onChange={useSetNewTask} />
+            <input type="text" name="user_name" placeholder="Who is it Assigned to?" value={newTask.user_name} onChange={useSetNewTask} />
             </label>
-            <input type="text" name="project_title" placeholder="Project?" value={newTask.project_title} onChange={useSetNewTask} />
+            <input type="text" name="project_title" placeholder="What project is it for?" value={newTask.project_title} onChange={useSetNewTask} />
             <button type="submit">Done!</button>
         </form>}
     </div>

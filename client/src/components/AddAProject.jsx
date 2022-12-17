@@ -47,8 +47,8 @@ function AddAProject({proj, handM, id, usErr}) {
           return (
             <div>
                 <form className="project-builder" onSubmit={submitProject}>
-                    <input type="text" name="title" placeholder="Project Title" value={newProject.title} onChange={useSetNewProject} />
-                    <input type="text" name="due_date" placeholder="Due Date" value={newProject.due_date} onChange={useSetNewProject} />
+                    <input type="text" name="title" placeholder="New project title:" value={newProject.title} onChange={useSetNewProject} />
+                    <input type="text" name="due_date" placeholder="Due Date for the project (yyyy-mm-dd)" value={newProject.due_date} onChange={useSetNewProject} />
 
                     <button type="submit">Done!</button>
                 </form>

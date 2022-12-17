@@ -2,12 +2,16 @@ import React from 'react'
 import TasksContainer from './TasksContainer'
 import MakeTasks from './MakeTask'
 
-function TasksList({ tasks, setTasks, users, id, admin, usErr }) {
+function TasksList({ tasks, setTasks, users, id, admin, usErr, cUser }) {
+  console.log(tasks)
 
     function handleDelete(ida){
       const newTodos = tasks.filter((t) => t.id !== ida)
       setTasks(newTodos)
     }
+    console.log(tasks)
+    console.log(tasks.user)
+    console.log(cUser)
   
     function handleComplete(info){
       let completeTodo = tasks.find((t) => t.id === info.id)

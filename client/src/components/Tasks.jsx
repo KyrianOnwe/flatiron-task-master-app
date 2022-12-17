@@ -1,6 +1,8 @@
 import React from 'react'
 
-function Tasks({ task, dd, status, id, handD, handC, usid, admin, usErr }) {
+function Tasks({ task, dd, status, id, handD, handC, usname, projName, projDD, admin, usErr }) {
+  console.log(task)
+  console.log(projName)
 
     function completed(){
         fetch(`/tasks/${id}`, {
@@ -39,13 +41,19 @@ function Tasks({ task, dd, status, id, handD, handC, usid, admin, usErr }) {
       </td>
       <td>
         {status}       
-      </td>      
+      </td>   
 
       <td><button onClick={completed}>Complete</button>{!admin ? null : <button onClick={handleDelete}>Delete</button>}</td>
 
       {admin ? <td>
-        {usid}       
+        {usname}       
       </td> : null}
+      <td>
+        {projName}
+      </td>
+      <td>
+        {projDD}
+      </td>
 
     </tr>
     </>

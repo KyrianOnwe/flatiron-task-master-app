@@ -22,6 +22,7 @@ function App() {
   const [isNewUser, setIsNewUser] = useState(false)
   const [start, setstart] = useState(false)
   const [isAdmin, setisAdmin] = useState(false)
+  const [currentUser, setcurrentUser] = useState()
 
   useEffect(() => {
     if(start && isAdmin){
@@ -36,6 +37,26 @@ function App() {
     }
   },[user, start, isAdmin])
 
+  useEffect(() => {
+    fetch('/auth')
+      .then(res => {
+        if(res.ok){
+          res.json().then(useSetUser)
+        } 
+      }      
+      )
+  },[])
+
+  // if(!user) return <Auth setu={useSetUser} usnewusr={useSetIsNewUser} newUser={isNewUser} useSetUser={useSetUser} usErr={useSetErrors} />
+  
+
+
+
+  // console.log(tasks)
+  useEffect(() => {
+    if(start && isAdmin){
+      setcurrentUser(user)}
+    },[user, start, isAdmin])
 
   useEffect(() => {
     if(start && isAdmin){
@@ -49,6 +70,7 @@ function App() {
       })
     }
   },[user, start, isAdmin])
+  
 
   
   useEffect(() => {
@@ -112,7 +134,24 @@ function App() {
   function useSetErrors(data){
     console.log(data)
     if(data.errors){
-      let error2 = data.errors.map(error => Object.entries(error))
+      let errorCont = Object.entries(data.errors)
+      console.log(errorCont)
+      if(errorCont.length < 2){
+        let error2 = Object.entries(data.errors)
+        console.log(error2)
+        setErrors(error2)
+        setTimeout(() => {
+        clearErrorMessage()
+        }, 10000);
+      } else {
+        let error2 = errorCont.map(erC => Object.entries(erC))
+        console.log(error2)
+        setErrors(error2)
+        setTimeout(() => {
+        clearErrorMessage()
+        }, 10000);
+      }
+      let error2 = errorCont.map(error => Object.entries(error))
       setErrors(error2)
       setTimeout(() => {
         clearErrorMessage()
@@ -143,13 +182,13 @@ function App() {
     {!start ? <Auth setu={useSetUser} usnewusr={useSetIsNewUser} newUser={isNewUser} useSetUser={useSetUser} usErr={useSetErrors} /> : null} 
     <Routes>
       <Route path='/' element={!start ? null : <Home admin={isAdmin} id={user.id}/>} />
-      <Route path='/tasks' element={!start ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={user.id} handD={deleteTask} handC={updateTask} handM={addTask} admin={isAdmin} usErr={useSetErrors}/>} />
+      <Route path='/tasks' element={!start ? null : <TasksList tasks={tasks} setTasks={setTasks} user={user} setUser={setUser} id={user.id} handD={deleteTask} handC={updateTask} handM={addTask} admin={isAdmin} usErr={useSetErrors} cUser={currentUser}/>} />
       <Route path='/projects' element={!isAdmin ? null : <ProjectPage proj={projects}  id={user.id} handM={handleNewProject} usErr={useSetErrors} />} />
 
       
     </Routes>
 
-    {errors?errors.map(e => <div>{e[0] +': ' + e[1]}</div>):null}
+    {errors?errors.map(e => <div key={e[0]}>{e[0] +': ' + e[1]}</div>):null}
 
     <Footer />
     </>

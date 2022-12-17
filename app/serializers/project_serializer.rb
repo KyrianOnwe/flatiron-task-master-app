@@ -1,5 +1,5 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :title, :tasks
+  attributes :title, :due_date, :tasks
   
   has_many :tasks
 end
